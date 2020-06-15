@@ -35,7 +35,7 @@ namespace TTCSDL
         {
             try
             {
-                string query = "select ROW_NUMBER() OVER (ORDER BY IDSinhVien) as STT, IDSinhVien as 'Mã sinh viên',HoTen as 'Họ và tên',GioiTinh as 'Giới tính',SoTCDaDKi as'STCDDK',SoTCDaDat as'STCDD' from SinhVien where SinhVien.IDLop='" + id + "'";
+                string query = "select ROW_NUMBER() OVER (ORDER BY IDSinhVien) AS STT, IDSinhVien as 'Mã sinh viên',HoTen as 'Họ và tên',NgaySinh as 'Ngày sinh',GioiTinh as 'Giới tính',QueQuan as 'Quê quán',DiaChiHT as 'Địa chỉ hiện tại',KhoaDKi as 'Khoa',[IDLop] as'IDLớp',GhiChu as'Ghi chú',SoTCDaDKi as'STCDDK',SoTCDaDat as'STCDD' from SinhVien where SinhVien.IDLop='" + id + "'";
                 SqlDataAdapter dataadapter = new SqlDataAdapter(query, connection);
                 DataSet ds = new DataSet();
                 dataadapter.Fill(ds, "data");
@@ -113,14 +113,16 @@ namespace TTCSDL
                         return true;
                     }
                     sql = "update Lop set  SiSo='0' where Lop.IDLop='" + s + "'";
-                    insertCommand.ExecuteNonQuery();
+                   var insertCommand2 = new SqlCommand(sql, connection);
+                    insertCommand2.ExecuteNonQuery();
+                    return true;
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.ToString());
+                return false;
             }
-            return false;
         }
         public bool ThemSV(SinhVien sv)
         {
@@ -219,6 +221,26 @@ namespace TTCSDL
             return false;
         }
         #endregion
+
+       public bool SearchSV(DataGridView view1,string text)
+        {
+            try
+            {
+                string query = "exec Search"+" N'"+text+"'";
+                SqlDataAdapter dataadapter = new SqlDataAdapter(query, connection);
+                DataSet ds = new DataSet();
+                dataadapter.Fill(ds, "data");
+                view1.DataSource = ds;
+                view1.DataMember = "data";
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString(), "Cảnh báo lỗi", MessageBoxButtons.OK);
+            }
+            return false;
+        }
+
     }
 
 }

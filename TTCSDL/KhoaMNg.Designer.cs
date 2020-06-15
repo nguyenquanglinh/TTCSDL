@@ -38,7 +38,6 @@
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column4 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column5 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.btnOk = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.txtSiSo = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -46,6 +45,8 @@
             // 
             // comboBoxKhoa
             // 
+            this.comboBoxKhoa.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.comboBoxKhoa.FormattingEnabled = true;
             this.comboBoxKhoa.Location = new System.Drawing.Point(99, 12);
             this.comboBoxKhoa.Name = "comboBoxKhoa";
@@ -55,6 +56,8 @@
             // 
             // label8
             // 
+            this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.label8.AutoSize = true;
             this.label8.Location = new System.Drawing.Point(12, 15);
             this.label8.Name = "label8";
@@ -64,6 +67,8 @@
             // 
             // txtTenKhoa
             // 
+            this.txtTenKhoa.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txtTenKhoa.Location = new System.Drawing.Point(429, 12);
             this.txtTenKhoa.Name = "txtTenKhoa";
             this.txtTenKhoa.ReadOnly = true;
@@ -72,6 +77,8 @@
             // 
             // label1
             // 
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(345, 15);
             this.label1.Name = "label1";
@@ -81,6 +88,10 @@
             // 
             // dataGridView1
             // 
+            this.dataGridView1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column1,
@@ -112,7 +123,6 @@
             // 
             this.Column3.HeaderText = "Tên lớp";
             this.Column3.Name = "Column3";
-            this.Column3.Width = 200;
             // 
             // Column4
             // 
@@ -124,16 +134,6 @@
             // 
             this.Column5.HeaderText = "Niên khóa";
             this.Column5.Name = "Column5";
-            // 
-            // btnOk
-            // 
-            this.btnOk.Location = new System.Drawing.Point(239, 50);
-            this.btnOk.Name = "btnOk";
-            this.btnOk.Size = new System.Drawing.Size(130, 23);
-            this.btnOk.TabIndex = 36;
-            this.btnOk.Text = "Lấy danh sách lớp";
-            this.btnOk.UseVisualStyleBackColor = true;
-            this.btnOk.Click += new System.EventHandler(this.button1_Click);
             // 
             // label2
             // 
@@ -156,13 +156,11 @@
             // 
             // KhoaMNg
             // 
-            this.AcceptButton = this.btnOk;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(647, 247);
             this.Controls.Add(this.txtSiSo);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.btnOk);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtTenKhoa);
@@ -170,6 +168,7 @@
             this.Controls.Add(this.label8);
             this.Name = "KhoaMNg";
             this.Text = "Quản lý sinh viên trong khoa";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.KhoaMNg_FormClosed);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -183,7 +182,6 @@
         private System.Windows.Forms.TextBox txtTenKhoa;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.Button btnOk;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtSiSo;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;

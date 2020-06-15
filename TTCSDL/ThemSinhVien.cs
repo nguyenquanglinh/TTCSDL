@@ -17,6 +17,7 @@ namespace TTCSDL
             InitializeComponent();
         }
         public SinhVien SV=new SinhVien();
+        private Form1 form1;
 
         public DbAccess DB { get; private set; }
 
@@ -34,6 +35,12 @@ namespace TTCSDL
                 comboBoxIDLop.Items.Add(db.dataLop.Rows[i]["Mã lớp"]);
             }
         }
+
+        public ThemSinhVien(DbAccess db, Form1 form1) : this(db)
+        {
+            this.form1 = form1;
+        }
+
         private void btnThem_Click(object sender, EventArgs e)
         {
             var maSv = txtMaSV.Text;
@@ -114,6 +121,11 @@ namespace TTCSDL
             {
                 comboBoxIDLop.Items.Add(DB.dataLop.Rows[i]["Mã lớp"]);
             }
+        }
+
+        private void ThemSinhVien_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            form1.Show();
         }
     }
 }

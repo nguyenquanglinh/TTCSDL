@@ -34,12 +34,16 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AxShockwaveFlashObjects, Version=1.0.0.0, Culture=neutral, PublicKeyToken=692fbea5521e1304" />
+    <Reference Include="Bunifu_UI_v1.52">
+      <HintPath>..\..\..\..\Downloads\Bunifu_UI_v1.52.dll</HintPath>
+    </Reference>
     <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="CrystalDecisions.ReportSource, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="CrystalDecisions.Shared, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="CrystalDecisions.Windows.Forms, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Management" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.Xml.Linq" />
@@ -93,12 +97,6 @@
     <Compile Include="ThemSinhVien.Designer.cs">
       <DependentUpon>ThemSinhVien.cs</DependentUpon>
     </Compile>
-    <Compile Include="TimKiem.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="TimKiem.Designer.cs">
-      <DependentUpon>TimKiem.cs</DependentUpon>
-    </Compile>
     <EmbeddedResource Include="DanhSachSV.resx">
       <DependentUpon>DanhSachSV.cs</DependentUpon>
     </EmbeddedResource>
@@ -125,9 +123,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ThemSinhVien.resx">
       <DependentUpon>ThemSinhVien.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="TimKiem.resx">
-      <DependentUpon>TimKiem.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

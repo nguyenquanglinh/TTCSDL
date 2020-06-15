@@ -233,6 +233,7 @@
             this.Controls.Add(this.label1);
             this.Name = "ThemSinhVien";
             this.Text = "Thêm sinh viên";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.ThemSinhVien_FormClosed);
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -33,6 +33,12 @@ namespace TTCSDL
                 dic.Add(makhoa, teKhoa);
             }
         }
+
+        public KhoaMNg(Form1 form1, DbAccess db) : this(db)
+        {
+            this.form1 = form1;
+        }
+
         void UpDateData()
         {
             db.dataLop = db.GetListLop(comboBoxKhoa.Text);
@@ -50,24 +56,15 @@ namespace TTCSDL
                 dataGridView1.Rows.Add(i + 1, db.dataLop.Rows[i]["Mã lớp"], db.dataLop.Rows[i]["Tên lớp"], db.dataLop.Rows[i]["Sĩ số"], db.dataLop.Rows[i]["Niên khóa"]);
             }
         }
-        private void button1_Click(object sender, EventArgs e)
-        {
 
-            if (comboBoxKhoa.Text.Length == 0)
-            {
-                MessageBox.Show("Chưa chọn khoa để xử lý");
-                return;
-            }
-            UpDateData();
-
-        }
         private void dataGridView1_MouseClick(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Right)
             {
                 ContextMenuStrip contexMenuCanHo = new ContextMenuStrip();
                 contexMenuCanHo.Items.Add("Xem danh sách lớp");
-                contexMenuCanHo.Items.Add("Cập nhật sĩ số lớp");
+                contexMenuCanHo.Items.Add("Cập nhật sĩ số lớp hiện tại");
+                contexMenuCanHo.Items.Add("Cập nhật sĩ số lớp của tất cả các lớp");
                 contexMenuCanHo.Show(dataGridView1, new Point(e.X, e.Y));
                 contexMenuCanHo.ItemClicked += new ToolStripItemClickedEventHandler(
                     contexMenuCanHo_ItemClicked);
@@ -81,23 +78,25 @@ namespace TTCSDL
             if (item.Text == "Xem danh sách lớp")
             {
                 if (id != null)
-                    new DanhSachSV(db, id, tenLop,niemKhoa).ShowDialog();
+                {
+                    this.Hide();
+                    new DanhSachSV(this, db, id, tenLop, niemKhoa).Show();
+                }
             }
-            else if (item.Text == "Cập nhật sĩ số lớp")
+            else if (item.Text == "Cập nhật sĩ số lớp hiện tại")
             {
-                if (MessageBox.Show("Bạn muốn cập nhật sĩ số cho tất cả các lớp trong khoa(yes)/lớp hiện tại (No)", "Thông báo", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                {
-                    for (int i = 0; i < db.dataLop.Rows.Count; i++)
-                    {
-                        db.UpDateSiSoKhoa(db.dataLop.Rows[i]["Mã lớp"].ToString());
-                    }
-                }
-                else if (db.UpDateSiSoKhoa(id))
-                {
-
+                if (db.UpDateSiSoKhoa(id))
                     MessageBox.Show("Cập nhật sĩ số lớp " + tenLop + " thành công", "Thông báo", MessageBoxButtons.OK);
-                }
                 else MessageBox.Show("Cập nhật không thành công", "Thông báo", MessageBoxButtons.OK);
+
+            }
+            else if (item.Text == "Cập nhật sĩ số lớp của tất cả các lớp")
+            {
+                for (int i = 0; i < db.dataLop.Rows.Count; i++)
+                {
+                    db.UpDateSiSoKhoa(db.dataLop.Rows[i]["Mã lớp"].ToString());
+                }
+                MessageBox.Show("Cập nhật sĩ số lớp tất cả các lớp thành công", "Thông báo", MessageBoxButtons.OK);
 
             }
             UpDateData();
@@ -114,17 +113,25 @@ namespace TTCSDL
                     break;
                 }
             }
+            if (comboBoxKhoa.Text.Length == 0)
+            {
+                MessageBox.Show("Chưa chọn khoa để xử lý");
+                return;
+            }
+            UpDateData();
         }
         string id;
         string tenLop;
         string niemKhoa;
+        private Form1 form1;
+
         private void dataGridView1_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
             try
             {
                 id = dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString();
                 tenLop = dataGridView1.Rows[e.RowIndex].Cells[2].Value.ToString();
-                niemKhoa= dataGridView1.Rows[e.RowIndex].Cells[4].Value.ToString();
+                niemKhoa = dataGridView1.Rows[e.RowIndex].Cells[4].Value.ToString();
             }
             catch { }
 
@@ -132,7 +139,12 @@ namespace TTCSDL
 
         private void button1_Click_1(object sender, EventArgs e)
         {
-        
+
+        }
+
+        private void KhoaMNg_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            form1.Show();
         }
     }
 }

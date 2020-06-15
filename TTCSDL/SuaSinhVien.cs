@@ -46,7 +46,14 @@ namespace TTCSDL
             txtQueQuan.Text = s.QueQuan;
             txtGioiTinh.Text = s.GioiTinh.ToString();
         }
+
+        public SuaSinhVien(SinhVien s, DbAccess db, Form1 form1) : this(s, db)
+        {
+            this.form1 = form1;
+        }
+
         public SinhVien SV = new SinhVien();
+        private Form1 form1;
 
         public DbAccess DB { get; private set; }
 
@@ -115,6 +122,11 @@ namespace TTCSDL
             {
                 comboBoxIDLop.Items.Add(DB.dataLop.Rows[i]["Mã lớp"]);
             }
+        }
+
+        private void SuaSinhVien_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            form1.Show();
         }
     }
 }

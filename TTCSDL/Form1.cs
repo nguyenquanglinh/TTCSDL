@@ -16,7 +16,6 @@ namespace TTCSDL
         {
             InitializeComponent();
         }
-        bool TimKiem = true;
         private SinhVien GetSVFromTable(int i)
         {
             var sv = new SinhVien(dataGridView1.Rows[i].Cells[1].Value.ToString(),
@@ -36,21 +35,14 @@ namespace TTCSDL
             sv.GhiChu = dataGridView1.Rows[i].Cells[9].Value.ToString();
             return sv;
         }
-        private void UpDateTable()
+        public void UpDateTable()
         {
             this.Db.GetDataTableSinhVien(dataGridView1);
-            var dic = new Dictionary<int, SinhVien>();
-            for (int i = 0; i < dataGridView1.Rows.Count-1; i++)
-            {
-                dic.Add(i, GetSVFromTable(i));
-            }
-            timKiem1.Dic = dic;
         }
         private void Form1_Load(object sender, EventArgs e)
         {
             Db = new DbAccess();
             UpDateTable();
-            
         }
         private void dataGridView1_MouseClick(object sender, MouseEventArgs e)
         {
@@ -60,15 +52,13 @@ namespace TTCSDL
                 contexMenu.Items.Add("Thêm sinh viên mới");
                 contexMenu.Items.Add("Sửa thông tin sinh viên");
                 contexMenu.Items.Add("Xóa sinh viên");
-                if (TimKiem)
+                if (txtSearch.Visible==false)
                 {
                     contexMenu.Items.Add("Tìm kiếm sinh viên");
-                    TimKiem = false;
                 }
                 else
                 {
                     contexMenu.Items.Add("Ẩn tìm kiếm sinh viên");
-                    TimKiem = true;
                 }
                 contexMenu.Items.Add("Nghiệp vụ khoa");
                 contexMenu.Show(dataGridView1, new Point(e.X, e.Y));
@@ -82,14 +72,16 @@ namespace TTCSDL
             ToolStripItem item = e.ClickedItem;
             if (item.Text == "Thêm sinh viên mới")
             {
-                var them = new ThemSinhVien(Db);
+                this.Hide();
+                var them = new ThemSinhVien(Db,this);
                 them.ShowDialog();
             }
             else if (item.Text == "Sửa thông tin sinh viên")
             {
                 if (s != null)
                 {
-                    var sua = new SuaSinhVien(s,Db);
+                    this.Hide();
+                    var sua = new SuaSinhVien(s,Db,this);
                     sua.ShowDialog();
                 }
                 else
@@ -111,15 +103,20 @@ namespace TTCSDL
             }
             else if (item.Text == "Tìm kiếm sinh viên")
             {
-                timKiem1.Visible = true;
+                //timKiem1.Visible = true;
+                txtSearch.Visible = true;
+                btnSearch.Visible = true;
             }
             else if (item.Text == "Ẩn tìm kiếm sinh viên")
             {
-                timKiem1.Visible = false;
+                //timKiem1.Visible = false;
+                txtSearch.Visible = false;
+                btnSearch.Visible = false;
             }
             else if(item.Text=="Nghiệp vụ khoa")
             {
-                new KhoaMNg(Db).ShowDialog();
+                this.Hide();
+                new KhoaMNg(this,Db).ShowDialog();
             }
             UpDateTable();
         }
@@ -138,14 +135,19 @@ namespace TTCSDL
 
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void btnSearch_Click(object sender, EventArgs e)
         {
-            timKiem1.OnClick(!TimKiem);
+            this.Hide();
+            new FormTimKiem(dataGridView1).Show();
+
         }
-
-        private void timKiem1_Load(object sender, EventArgs e)
+        private void txtSearch_TextChanged(object sender, EventArgs e)
         {
-
+            if (txtSearch.Text.Length == 0)
+            {
+                Db.GetDataTableSinhVien(dataGridView1);
+            }
+            else Db.SearchSV(dataGridView1, txtSearch.Text);
         }
     }
 }

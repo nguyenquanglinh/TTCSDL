@@ -12,6 +12,8 @@ namespace TTCSDL
 {
     public partial class DanhSachSV : Form
     {
+        private KhoaMNg khoaMNg;
+
         public DanhSachSV()
         {
             InitializeComponent();
@@ -32,7 +34,22 @@ namespace TTCSDL
             label3.Text+=  "Lớp " + tenLop+" Niên khóa: "+nienKhoa;
         }
 
+        public DanhSachSV(KhoaMNg khoaMNg, DbAccess db, string id, string tenLop, string niemKhoa):this(db,id,tenLop,niemKhoa)
+        {
+            this.khoaMNg = khoaMNg;
+        }
+
         private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void DanhSachSV_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            khoaMNg.Show();
+        }
+
+        private void DanhSachSV_Load(object sender, EventArgs e)
         {
 
         }

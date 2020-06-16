@@ -61,6 +61,7 @@ namespace TTCSDL
                     contexMenu.Items.Add("Ẩn tìm kiếm sinh viên");
                 }
                 contexMenu.Items.Add("Nghiệp vụ khoa");
+                contexMenu.Items.Add("Xuất ra file exel");
                 contexMenu.Show(dataGridView1, new Point(e.X, e.Y));
                 contexMenu.ItemClicked += new ToolStripItemClickedEventHandler(
                     contexMenuCanHo_ItemClicked);
@@ -117,6 +118,20 @@ namespace TTCSDL
             {
                 this.Hide();
                 new KhoaMNg(this,Db).ShowDialog();
+            }
+            else if(item.Text== "Xuất ra file exel")
+            {
+                var dssv = new List<SinhVien>();
+                for (int i = 0; i < dataGridView1.Rows.Count-1; i++)
+                {
+                    dssv.Add(GetSVFromTable(i));
+                }
+                if (dssv.Count > 0)
+                {
+                    ExelManager.XuatDSSV(dssv);
+                    MessageBox.Show("Xuất file excel thành công", "Thông báo", MessageBoxButtons.OK);
+                }
+                else MessageBox.Show("Danh sách sinh viên hiện tại rỗng","Thông báo",MessageBoxButtons.OK);
             }
             UpDateTable();
         }
